@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 
-export default function GotoPage() {
+function RedirectComponent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const link = searchParams.get('link');
@@ -19,5 +19,13 @@ export default function GotoPage() {
   }, [link, router]);
 
   return null;
+}
+
+export default function GotoPage() {
+  return (
+    <Suspense fallback={null}>
+      <RedirectComponent />
+    </Suspense>
+  );
 }
 
